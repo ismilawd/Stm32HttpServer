@@ -40,6 +40,12 @@
     <Filter Include="VisualGDB settings">
       <UniqueIdentifier>{5470721d-d900-4af1-a66d-dad30b54b6b9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source files\Device-specific files\FatFs">
+      <UniqueIdentifier>{32d85a7d-fa91-42c0-9dff-886eac0d5e91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\Device-specific files\FatFs">
+      <UniqueIdentifier>{597e6768-cdd5-42d1-b252-f49435ff26e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Stm32HttpServer.c">
@@ -798,5 +804,41 @@
     <None Include="stm32.xml">
       <Filter>VisualGDB settings</Filter>
     </None>
+    <ClCompile Include="$(BSP_ROOT)\FatFs\src\diskio.c">
+      <Filter>Source files\Device-specific files\FatFs</Filter>
+    </ClCompile>
+    <ClCompile Include="$(BSP_ROOT)\FatFs\src\ff.c">
+      <Filter>Source files\Device-specific files\FatFs</Filter>
+    </ClCompile>
+    <ClCompile Include="$(BSP_ROOT)\FatFs\src\ff_gen_drv.c">
+      <Filter>Source files\Device-specific files\FatFs</Filter>
+    </ClCompile>
+    <ClCompile Include="$(BSP_ROOT)\FatFs\src\option\syscall.c">
+      <Filter>Source files\Device-specific files\FatFs</Filter>
+    </ClCompile>
+    <ClCompile Include="$(BSP_ROOT)\FatFs\src\option\unicode.c">
+      <Filter>Source files\Device-specific files\FatFs</Filter>
+    </ClCompile>
+    <ClInclude Include="ffconf.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(BSP_ROOT)\FatFs\src\diskio.h">
+      <Filter>Header files\Device-specific files\FatFs</Filter>
+    </ClInclude>
+    <ClInclude Include="$(BSP_ROOT)\FatFs\src\ff.h">
+      <Filter>Header files\Device-specific files\FatFs</Filter>
+    </ClInclude>
+    <ClInclude Include="$(BSP_ROOT)\FatFs\src\ffconf_template.h">
+      <Filter>Header files\Device-specific files\FatFs</Filter>
+    </ClInclude>
+    <ClInclude Include="$(BSP_ROOT)\FatFs\src\ff_gen_drv.h">
+      <Filter>Header files\Device-specific files\FatFs</Filter>
+    </ClInclude>
+    <ClInclude Include="$(BSP_ROOT)\FatFs\src\integer.h">
+      <Filter>Header files\Device-specific files\FatFs</Filter>
+    </ClInclude>
+    <ClInclude Include="$(BSP_ROOT)\BSP\ConfigTemplates\ffconf.h">
+      <Filter>Header files\Device-specific files\FatFs</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

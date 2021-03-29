@@ -308,5 +308,17 @@
     <None Include="Stm32HttpServer-Debug.vgdbsettings" />
     <None Include="Stm32HttpServer-Release.vgdbsettings" />
     <None Include="stm32.xml" />
+    <ClCompile Include="$(BSP_ROOT)\FatFs\src\diskio.c" />
+    <ClCompile Include="$(BSP_ROOT)\FatFs\src\ff.c" />
+    <ClCompile Include="$(BSP_ROOT)\FatFs\src\ff_gen_drv.c" />
+    <ClCompile Include="$(BSP_ROOT)\FatFs\src\option\syscall.c" />
+    <ClCompile Include="$(BSP_ROOT)\FatFs\src\option\unicode.c" />
+    <ClInclude Include="ffconf.h" />
+    <ClInclude Include="$(BSP_ROOT)\FatFs\src\diskio.h" />
+    <ClInclude Include="$(BSP_ROOT)\FatFs\src\ff.h" />
+    <ClInclude Include="$(BSP_ROOT)\FatFs\src\ffconf_template.h" />
+    <ClInclude Include="$(BSP_ROOT)\FatFs\src\ff_gen_drv.h" />
+    <ClInclude Include="$(BSP_ROOT)\FatFs\src\integer.h" />
+    <ClInclude Include="$(BSP_ROOT)\BSP\ConfigTemplates\ffconf.h" />
   </ItemGroup>
 </Project>
