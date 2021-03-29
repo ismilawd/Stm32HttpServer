@@ -32,3 +32,9 @@
 *.app
 
 .vs
+
+.visualgdb
+Stm32HttpServer/Stm32HttpServer-Debug.vgdbsettings.ismilawd.user
+Stm32HttpServer/Stm32HttpServer.vcxproj.user
+Stm32HttpServer/VisualGDB/Debug/Stm32HttpServer.alldeps
+VisualGDB/Debug/Stm32HttpServer.progstat
