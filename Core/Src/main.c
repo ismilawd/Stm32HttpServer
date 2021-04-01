@@ -24,7 +24,9 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <lcd_i2cModule.h>
+#include <stdio.h>
+#include <Debug.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -107,7 +109,16 @@ int main(void)
   MX_USART1_UART_Init();
   MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
-
+  LCD_i2cDeviceCheck();
+  LCD_Init();
+  HAL_Delay(500);
+  LCD_BackLight(LCD_BL_ON);
+  HAL_Delay(500);
+  Debug_WriteLine("Http Server");
+  Debug_WriteLine("By @ismilawd");
+  HAL_Delay(2000);
+  Debug_Clear();
+  Debug_WriteLine("Device Ready");
   /* USER CODE END 2 */
 
   /* USER CODE BEGIN RTOS_MUTEX */
