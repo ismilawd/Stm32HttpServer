@@ -1,42 +1,4 @@
-# Prerequisites
-*.d
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
-
-.vs
-
-.visualgdb
-Stm32HttpServer/Stm32HttpServer-Debug.vgdbsettings.ismilawd.user
-Stm32HttpServer/Stm32HttpServer.vcxproj.user
-Stm32HttpServer/VisualGDB/Debug/Stm32HttpServer.alldeps
-VisualGDB/Debug/Stm32HttpServer.progstat
-
-VisualGDB
+.vs/Stm32HttpServer/v16/Browse.VC.db
+.vs/Stm32HttpServer/v16/.suo
+.settings/language.settings.xml
