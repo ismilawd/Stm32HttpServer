@@ -83,7 +83,7 @@
 / Locale and Namespace Configurations
 /-----------------------------------------------------------------------------*/
 
-#define _CODE_PAGE         850
+#define _CODE_PAGE         936
 /* This option specifies the OEM code page to be used on the target system.
 /  Incorrect setting of the code page can cause a file open failure.
 /
@@ -111,7 +111,7 @@
 /   950 - Traditional Chinese (DBCS)
 */
 
-#define _USE_LFN     0    /* 0 to 3 */
+#define _USE_LFN     2    /* 0 to 3 */
 #define _MAX_LFN     255  /* Maximum LFN length to handle (12 to 255) */
 /* The _USE_LFN switches the support of long file name (LFN).
 /
@@ -244,7 +244,7 @@
 
 #define _USE_MUTEX       0 /* 0:Disable or 1:Enable */
 #define _FS_TIMEOUT      1000 /* Timeout period in unit of time ticks */
-#define _SYNC_t          osSemaphoreId
+#define _SYNC_t          osSemaphoreId_t
 /* The option _FS_REENTRANT switches the re-entrancy (thread safe) of the FatFs
 /  module itself. Note that regardless of this option, file access to different
 /  volume is always re-entrant and volume control functions, f_mount(), f_mkfs()

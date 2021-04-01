@@ -24,6 +24,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <File_Handling.h>
 #include <lcd_i2cModule.h>
 #include <stdio.h>
 #include <Debug.h>
@@ -52,7 +53,13 @@ DMA_HandleTypeDef hdma_sdio_tx;
 
 UART_HandleTypeDef huart1;
 
-osThreadId ServerTaskHandle;
+/* Definitions for ServerTask */
+osThreadId_t ServerTaskHandle;
+const osThreadAttr_t ServerTask_attributes = {
+  .name = "ServerTask",
+  .priority = (osPriority_t) osPriorityHigh,
+  .stack_size = 2048 * 4
+};
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -64,7 +71,7 @@ static void MX_DMA_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_SDIO_SD_Init(void);
 static void MX_USART1_UART_Init(void);
-void StartServerTask(void const * argument);
+void StartServerTask(void *argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -105,6 +112,7 @@ int main(void)
   MX_GPIO_Init();
   MX_DMA_Init();
   MX_I2C1_Init();
+  BSP_SD_Init();
   MX_SDIO_SD_Init();
   MX_USART1_UART_Init();
   MX_FATFS_Init();
@@ -119,7 +127,11 @@ int main(void)
   HAL_Delay(2000);
   Debug_Clear();
   Debug_WriteLine("Device Ready");
+
   /* USER CODE END 2 */
+
+  /* Init scheduler */
+  osKernelInitialize();
 
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
@@ -138,9 +150,8 @@ int main(void)
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
-  /* definition and creation of ServerTask */
-  osThreadDef(ServerTask, StartServerTask, osPriorityHigh, 0, 128);
-  ServerTaskHandle = osThreadCreate(osThread(ServerTask), NULL);
+  /* creation of ServerTask */
+  ServerTaskHandle = osThreadNew(StartServerTask, NULL, &ServerTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -259,7 +270,7 @@ static void MX_SDIO_SD_Init(void)
   hsd.Init.ClockPowerSave = SDIO_CLOCK_POWER_SAVE_DISABLE;
   hsd.Init.BusWide = SDIO_BUS_WIDE_1B;
   hsd.Init.HardwareFlowControl = SDIO_HARDWARE_FLOW_CONTROL_DISABLE;
-  hsd.Init.ClockDiv = 4;
+  hsd.Init.ClockDiv = 5;
   /* USER CODE BEGIN SDIO_Init 2 */
 
   /* USER CODE END SDIO_Init 2 */
@@ -354,9 +365,16 @@ static void MX_GPIO_Init(void)
   * @retval None
   */
 /* USER CODE END Header_StartServerTask */
-void StartServerTask(void const * argument)
+void StartServerTask(void *argument)
 {
   /* USER CODE BEGIN 5 */
+	  Debug_WriteLine("Try Mount SD");
+	Mount_SD("/");
+	  Debug_WriteLine("SD Mounted");
+	    Format_SD();
+	    Create_File("FILE1.TXT");
+	    Create_File("FILE2.TXT");
+	    Unmount_SD("/");
   /* Infinite loop */
   for(;;)
   {
