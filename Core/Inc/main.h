@@ -61,12 +61,6 @@ void Error_Handler(void);
 
 /* Private defines -----------------------------------------------------------*/
 /* USER CODE BEGIN Private defines */
-struct Struct_WifiConfig{
-	char ssid[20];
-	char password[20];
-	char ip[16];
-};
-typedef struct Struct_WifiConfig Struct_WifiConfig;
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
