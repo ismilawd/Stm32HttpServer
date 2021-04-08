@@ -144,20 +144,20 @@ int main(void)
 		HAL_Delay(1000);
 		Debug_Clear();
 	}
-	char fbuf[1024];
+	Struct_WifiConfig wifiConfig;
+	char fbuf[sizeof wifiConfig];
 	for(int i=0;i<sizeof fbuf;i++){
 		fbuf[i]=0;
 	}
-	fresult = f_open(&fil, "file1.txt",FA_OPEN_ALWAYS | FA_WRITE | FA_READ);
-	 f_gets(fbuf, sizeof fbuf, &fil);
-	fresult = f_close(&fil);
-	char str[(sizeof fbuf) + 1];
-	memcpy(str, fbuf, sizeof fbuf);
-	str[sizeof fbuf] = 0; // Null termination.
-	Debug_Clear();
-	Debug_WriteLine(str);
-	bufClear();
+
   /* USER CODE END 2 */
+	strcpy(wifiConfig.ssid,"ismilawd");
+	strcpy(wifiConfig.password,"Mm739739");
+	strcpy(wifiConfig.ip,"192.168.1.100");
+	memcpy(fbuf,(char*)&wifiConfig,sizeof wifiConfig);
+	fresult = f_open(&fil, "file1.txt",FA_OPEN_ALWAYS | FA_WRITE | FA_READ);
+	 f_puts(fbuf, &fil);
+	fresult = f_close(&fil);
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
