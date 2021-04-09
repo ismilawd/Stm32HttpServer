@@ -23,12 +23,5 @@
 void ESP_Init (char *SSID, char *PASSWD, char *STAIP);
 void Server_Start (void);
 
-typedef struct
-{
-	char firstname[15];
-	char lastname[15];
-	char age[3];
-}userDetails;
-
 
 #endif /* INC_ESP_DATA_HANDLER_H_ */

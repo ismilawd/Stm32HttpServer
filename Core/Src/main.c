@@ -38,7 +38,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define MAX_BUFFER_SIZE 1024
+#define MAX_BUFFER_SIZE 30720
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -72,7 +72,7 @@ static void MX_USART1_UART_Init(void);
 FATFS fs;
 FIL fil;
 FRESULT fresult;
-char buffer[MAX_BUFFER_SIZE] = { 0 };
+char fileBuffer[MAX_BUFFER_SIZE] = { 0 };
 
 int bufSize(char *buf) {
 	int i = 0;
@@ -83,7 +83,7 @@ int bufSize(char *buf) {
 
 void bufClear() {
 	for (int i = 0; i < MAX_BUFFER_SIZE; i++) {
-		buffer[i] = '\0';
+		fileBuffer[i] = '\0';
 	}
 }
 /* USER CODE END 0 */
@@ -145,7 +145,7 @@ int main(void) {
 		Debug_Clear();
 		Debug_WriteLine("File Conf ERR");
 	} else {
-		f_gets(buffer, MAX_BUFFER_SIZE, &fil);
+		f_gets(fileBuffer, MAX_BUFFER_SIZE, &fil);
 		fresult = f_close(&fil);
 		if (fresult != FR_OK) {
 			Debug_Clear();
@@ -157,7 +157,7 @@ int main(void) {
 			char pass[10] = { 0 };
 			char ipad[16] = { 0 };
 			for (int i = 0; i < MAX_BUFFER_SIZE; i++) {
-				char value = buffer[i];
+				char value = fileBuffer[i];
 				if (value == 0 || value == '\0')
 					break;
 				if (value == ',') {
