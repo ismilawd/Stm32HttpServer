@@ -1,10 +1,3 @@
-/*
- * fatfs_sd.h
- *
- *  Created on: Jul 2, 2020
- *      Author: meh
- */
-
 #ifndef INC_FATFS_SD_H_
 #define INC_FATFS_SD_H_
 

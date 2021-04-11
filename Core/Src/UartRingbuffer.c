@@ -1,29 +1,9 @@
-/*
- * UartRingbuffer.c
- *
- *  Created on: 10-Jul-2019
- *      Author: Controllerstech
- *
- *  Modified on: 11-April-2020
- */
-
 #include "UartRingbuffer.h"
 #include <string.h>
-
-/**** define the UART you are using  ****/
 
 UART_HandleTypeDef huart1;
 
 #define uart &huart1
-
-/* put the following in the ISR 
-
-extern void Uart_isr (UART_HandleTypeDef *huart);
-
-*/
-
-/****************=======================>>>>>>>>>>> NO CHANGES AFTER THIS =======================>>>>>>>>>>>**********************/
-
 
 ring_buffer rx_buffer = { { 0 }, 0, 0};
 ring_buffer tx_buffer = { { 0 }, 0, 0};
@@ -310,17 +290,6 @@ void Uart_isr (UART_HandleTypeDef *huart)
     /* if DR is not empty and the Rx Int is enabled */
     if (((isrflags & USART_SR_RXNE) != RESET) && ((cr1its & USART_CR1_RXNEIE) != RESET))
     {
-    	 /******************
-    	    	      *  @note   PE (Parity error), FE (Framing error), NE (Noise error), ORE (Overrun
-    	    	      *          error) and IDLE (Idle line detected) flags are cleared by software
-    	    	      *          sequence: a read operation to USART_SR register followed by a read
-    	    	      *          operation to USART_DR register.
-    	    	      * @note   RXNE flag can be also cleared by a read to the USART_DR register.
-    	    	      * @note   TC flag can be also cleared by software sequence: a read operation to
-    	    	      *          USART_SR register followed by a write operation to USART_DR register.
-    	    	      * @note   TXE flag is cleared only by a write to the USART_DR register.
-
-    	 *********************/
 		huart->Instance->SR;                       /* Read status register */
         unsigned char c = huart->Instance->DR;     /* Read data register */
         store_char (c, _rx_buffer);  // store data in buffer
@@ -342,19 +311,6 @@ void Uart_isr (UART_HandleTypeDef *huart)
     	      // There is more data in the output buffer. Send the next byte
     	      unsigned char c = tx_buffer.buffer[tx_buffer.tail];
     	      tx_buffer.tail = (tx_buffer.tail + 1) % UART_BUFFER_SIZE;
-
-    	      /******************
-    	      *  @note   PE (Parity error), FE (Framing error), NE (Noise error), ORE (Overrun
-    	      *          error) and IDLE (Idle line detected) flags are cleared by software
-    	      *          sequence: a read operation to USART_SR register followed by a read
-    	      *          operation to USART_DR register.
-    	      * @note   RXNE flag can be also cleared by a read to the USART_DR register.
-    	      * @note   TC flag can be also cleared by software sequence: a read operation to
-    	      *          USART_SR register followed by a write operation to USART_DR register.
-    	      * @note   TXE flag is cleared only by a write to the USART_DR register.
-
-    	      *********************/
-
     	      huart->Instance->SR;
     	      huart->Instance->DR = c;
 
@@ -362,67 +318,3 @@ void Uart_isr (UART_HandleTypeDef *huart)
     	return;
     }
 }
-
-
-/*** Depreciated For now. This is not needed, try using other functions to meet the requirement ***/
-/*
-uint16_t Get_position (char *string)
-{
-  static uint8_t so_far;
-  uint16_t counter;
-  int len = strlen (string);
-  if (_rx_buffer->tail>_rx_buffer->head)
-  {
-	  if (Uart_read() == string[so_far])
-	  		{
-	  		  counter=UART_BUFFER_SIZE-1;
-	  		  so_far++;
-	  		}
-	  else so_far=0;
-  }
-  unsigned int start = _rx_buffer->tail;
-  unsigned int end = _rx_buffer->head;
-  for (unsigned int i=start; i<end; i++)
-  {
-	  if (Uart_read() == string[so_far])
-		{
-		  counter=i;
-		  so_far++;
-		}
-	  else so_far =0;
-  }
-
-  if (so_far == len)
-	{
-	  so_far =0;
-	  return counter;
-	}
-  else return -1;
-}
-
-
-void Get_string (char *buffer)
-{
-	int index=0;
-
-	while (_rx_buffer->tail>_rx_buffer->head)
-	{
-		if ((_rx_buffer->buffer[_rx_buffer->head-1] == '\n')||((_rx_buffer->head == 0) && (_rx_buffer->buffer[UART_BUFFER_SIZE-1] == '\n')))
-			{
-				buffer[index] = Uart_read();
-				index++;
-			}
-	}
-	unsigned int start = _rx_buffer->tail;
-	unsigned int end = (_rx_buffer->head);
-	if ((_rx_buffer->buffer[end-1] == '\n'))
-	{
-
-		for (unsigned int i=start; i<end; i++)
-		{
-			buffer[index] = Uart_read();
-			index++;
-		}
-	}
-}
-*/
